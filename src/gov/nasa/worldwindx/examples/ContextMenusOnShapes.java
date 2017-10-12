@@ -55,14 +55,14 @@ public class ContextMenusOnShapes extends ApplicationTemplate
             if (this.lastPickedPlacemark == o)
                 return; // same thing selected
 
-            // Turn off highlight if on.
+            // Change off highlight if on.
             if (this.lastPickedPlacemark != null)
             {
                 this.lastPickedPlacemark.setHighlighted(false);
                 this.lastPickedPlacemark = null;
             }
 
-            // Turn on highlight if object selected.
+            // Change on highlight if object selected.
             if (o != null && o instanceof PointPlacemark)
             {
                 this.lastPickedPlacemark = (PointPlacemark) o;

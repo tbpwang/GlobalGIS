@@ -333,7 +333,7 @@ public class AnalysisPanel extends JPanel implements Restorable
 
             if (this.trackViewPanel.isExamineViewMode())
             {
-                this.crosshairLayer.setEnabled(false);  // Turn off crosshair
+                this.crosshairLayer.setEnabled(false);  // Change off crosshair
                 this.terrainProfilePanel.setFollowObject();
                 // Set the view center point to the current track position on the ground - spheroid.
                 // This gets the eye looking at the cross section.
@@ -440,7 +440,7 @@ public class AnalysisPanel extends JPanel implements Restorable
             }
             else if (this.trackViewPanel.isFreeViewMode())
             {
-                this.crosshairLayer.setEnabled(false);  // Turn off crosshair
+                this.crosshairLayer.setEnabled(false);  // Change off crosshair
                 if (goSmoothly)
                 {
                     // Stop any state iterators, and any view movement.

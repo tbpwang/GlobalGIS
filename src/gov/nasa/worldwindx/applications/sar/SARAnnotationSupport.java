@@ -224,7 +224,7 @@ public class SARAnnotationSupport
         if (this.lastPickedObject == o)
             return; // same thing selected
 
-        // Turn off highlight if on.
+        // Change off highlight if on.
         if (this.lastPickedObject != null) // && this.lastPickedObject != this.currentAnnotation)
         {
             this.lastPickedObject.getAttributes().setHighlighted(false);
@@ -232,7 +232,7 @@ public class SARAnnotationSupport
             updateHelpMessage(null);  // Clear help text
         }
 
-        // Turn on highlight if object selected.
+        // Change on highlight if object selected.
         if (o != null && o instanceof SARAnnotation)
         {
             this.lastPickedObject = (SARAnnotation) o;

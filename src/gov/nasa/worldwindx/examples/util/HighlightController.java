@@ -64,14 +64,14 @@ public class HighlightController implements SelectListener
         if (this.lastHighlightObject == o)
             return; // same thing selected
 
-        // Turn off highlight if on.
+        // Change off highlight if on.
         if (this.lastHighlightObject != null)
         {
             this.lastHighlightObject.setHighlighted(false);
             this.lastHighlightObject = null;
         }
 
-        // Turn on highlight if object selected.
+        // Change on highlight if object selected.
         if (o instanceof Highlightable)
         {
             this.lastHighlightObject = (Highlightable) o;

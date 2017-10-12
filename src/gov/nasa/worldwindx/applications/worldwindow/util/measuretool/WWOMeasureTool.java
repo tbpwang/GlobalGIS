@@ -1156,7 +1156,7 @@ public class WWOMeasureTool extends AVListImpl
             && ((WWOMeasureTool.ControlPoint) o).getParent() != this)
             return; // Does not belong to this measure tool
 
-        // Turn off highlight if on.
+        // Change off highlight if on.
         if (this.lastPickedObject != null)
         {
             this.lastPickedObject.highlight(false);
@@ -1165,7 +1165,7 @@ public class WWOMeasureTool extends AVListImpl
                 this.measureDisplay.updateMeasureDisplay(null);
         }
 
-        // Turn on highlight if object selected.
+        // Change on highlight if object selected.
         if (o != null && o instanceof WWOMeasureTool.ControlPoint)
         {
             this.lastPickedObject = (WWOMeasureTool.ControlPoint) o;

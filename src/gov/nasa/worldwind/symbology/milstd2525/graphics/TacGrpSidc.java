@@ -518,7 +518,7 @@ public interface TacGrpSidc
     final String MOBSU_OBST_OBSEFT_BLK = "G-M-OEB--------";
     /** Fix */
     final String MOBSU_OBST_OBSEFT_FIX = "G-M-OEF--------";
-    /** Turn */
+    /** Change */
     final String MOBSU_OBST_OBSEFT_TUR = "G-M-OET--------";
     /** Disrupt */
     final String MOBSU_OBST_OBSEFT_DRT = "G-M-OED--------";

@@ -818,7 +818,7 @@ public class HighResolutionTerrain extends WWObjectImpl implements Terrain
      */
     protected List<RectTile> getIntersectingTiles(Position pA, Position pB, Line line)
     {
-        // Turn off elevation min/max caching in the elevation model because searching for the intersecting tiles
+        // Change off elevation min/max caching in the elevation model because searching for the intersecting tiles
         // generates a lot of elevation min/max request that often overflows the elevation model's cache.
         boolean oldCachingMode = this.getGlobe().getElevationModel().isExtremesCachingEnabled();
         this.getGlobe().getElevationModel().setExtremesCachingEnabled(false);

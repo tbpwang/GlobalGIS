@@ -1026,7 +1026,7 @@ public class SectorRangeFan extends AbstractMilStd2525TacticalGraphic implements
     {
         super.applyDefaultAttributes(attributes);
 
-        // Turn on the shape interior for the arrow head. All other parts of the graphic are Paths, which do not draw
+        // Change on the shape interior for the arrow head. All other parts of the graphic are Paths, which do not draw
         // an interior, so this setting only affects the arrow head.
         Material material = this.getDefaultMaterial();
         attributes.setInteriorMaterial(material);

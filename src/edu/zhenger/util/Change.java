@@ -17,16 +17,16 @@ import gov.nasa.worldwind.globes.Globe;
  * @Function:
  * @Date: 2017/10/10
  */
-public final class Turn implements DGGS
+public final class Change implements DGGS
 {
-    private static Turn ourInstance = new Turn();
+    private static Change ourInstance = new Change();
 
-    public static Turn getInstance()
+    public static Change getInstance()
     {
         return ourInstance;
     }
 
-    private Turn()
+    private Change()
     {
     }
 
@@ -38,7 +38,8 @@ public final class Turn implements DGGS
 
     public Vec4 fromLatLon(LatLon latLon)
     {
-        double epsilon = 1e-6;
+        //return getGlobe().computePointFromLocation(latLon);
+        double epsilon = 1e-8;
         Vec4 vec4 = getGlobe().computePointFromLocation(latLon);
         double x, y, z;
         x = Math.abs(vec4.x) <= epsilon ? 0.0 : vec4.x;

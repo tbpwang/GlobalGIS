@@ -436,14 +436,14 @@ public class ViewControlsLayer extends RenderableLayer
         if (this.currentControl == control)
             return; // same thing selected
 
-        // Turn off highlight if on.
+        // Change off highlight if on.
         if (this.currentControl != null)
         {
             this.currentControl.getAttributes().setImageOpacity(-1); // use default opacity
             this.currentControl = null;
         }
 
-        // Turn on highlight if object selected.
+        // Change on highlight if object selected.
         if (control != null && control instanceof ScreenAnnotation)
         {
             this.currentControl = (ScreenAnnotation) control;

@@ -61,14 +61,14 @@ public class IconController extends AbstractFeature implements SelectListener, D
         if (this.lastPickedIcon == o)
             return; // same thing selected
 
-        // Turn off highlight if on.
+        // Change off highlight if on.
         if (this.lastPickedIcon != null)
         {
             this.lastPickedIcon.setHighlighted(false);
             this.lastPickedIcon = null;
         }
 
-        // Turn on highlight if object selected.
+        // Change on highlight if object selected.
         if (o != null && o instanceof WWIcon)
         {
             this.lastPickedIcon = (WWIcon) o;

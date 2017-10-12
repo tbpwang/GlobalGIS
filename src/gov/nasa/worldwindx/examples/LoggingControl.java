@@ -29,7 +29,7 @@ public class LoggingControl extends ApplicationTemplate
         // Get the World Wind logger by name.
         Logger logger = Logger.getLogger("gov.nasa.worldwind");
 
-        // Turn off logging to parent handlers of the World Wind handler.
+        // Change off logging to parent handlers of the World Wind handler.
         logger.setUseParentHandlers(false);
 
         // Create a console handler (defined below) that we use to write log messages.

@@ -6,7 +6,7 @@
 
 package edu.zhenger;
 
-import gov.nasa.worldwind.geom.*;
+import gov.nasa.worldwind.geom.Vec4;
 
 import java.io.Serializable;
 
@@ -14,14 +14,10 @@ import java.io.Serializable;
  * @Author: WangZheng
  * @Email: tbpwang@gmail.com
  * @Function:
- * @Date: 2017/10/10
+ * @Date: 2017/10/11
  */
-public interface Cell extends Serializable
+public interface Polyhedron extends Serializable
 {
-    Vec4[] getVertex();
-
-    //String getID();
-    String getGeocode();
-
-    LatLon getRefPoint();
+    Vec4[][] getVertex();
+    Cell getFacet(int ID);
 }

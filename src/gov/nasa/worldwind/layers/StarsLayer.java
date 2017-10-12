@@ -95,7 +95,7 @@ public class StarsLayer extends RenderableLayer
 
         this.setPickEnabled(false);
 
-        // Turn the layer off to eliminate its overhead when the user zooms in.
+        // Change the layer off to eliminate its overhead when the user zooms in.
         this.setMinActiveAltitude(DEFAULT_MIN_ACTIVE_ALTITUDE);
     }
 

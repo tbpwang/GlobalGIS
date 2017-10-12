@@ -148,14 +148,14 @@ public class VideoOnTerrain extends ApplicationTemplate
             if (this.lastHighlit == o)
                 return; // Same thing selected
 
-            // Turn off highlight if on.
+            // Change off highlight if on.
             if (this.lastHighlit != null)
             {
                 this.lastHighlit.setOpacity(IMAGE_OPACITY);
                 this.lastHighlit = null;
             }
 
-            // Turn on highlight if selected object is a SurfaceImage.
+            // Change on highlight if selected object is a SurfaceImage.
             if (o instanceof SurfaceImage)
             {
                 this.lastHighlit = (SurfaceImage) o;

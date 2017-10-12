@@ -373,7 +373,7 @@ public class ViewControlsSelectListener implements SelectListener
             Angle distance = computePanAmount(this.wwd.getModel().getGlobe(), view, control, panStep);
             LatLon newViewCenter = LatLon.greatCircleEndPosition(view.getCenterPosition(),
                 heading, distance);
-            // Turn around if passing by a pole - TODO: better handling of the pole crossing situation
+            // Change around if passing by a pole - TODO: better handling of the pole crossing situation
             if (this.isPathCrossingAPole(newViewCenter, view.getCenterPosition()))
                 view.setHeading(Angle.POS180.subtract(view.getHeading()));
             // Set new center pos

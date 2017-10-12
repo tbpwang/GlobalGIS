@@ -464,7 +464,7 @@ public class MeasureToolController extends MouseAdapter
         if (this.lastPickedObject == o)
             return; // Same thing selected
 
-        // Turn off highlight if on.
+        // Change off highlight if on.
         if (this.lastPickedObject != null)
         {
             this.lastPickedObject.getAttributes().setHighlighted(false);
@@ -475,7 +475,7 @@ public class MeasureToolController extends MouseAdapter
             this.setCursor(null);
         }
 
-        // Turn on highlight if object selected is a control point and belongs to this controller's MeasureTool.
+        // Change on highlight if object selected is a control point and belongs to this controller's MeasureTool.
         if (this.lastPickedObject == null && o instanceof MeasureTool.ControlPoint &&
             ((MeasureTool.ControlPoint) o).getParent() == measureTool)
         {

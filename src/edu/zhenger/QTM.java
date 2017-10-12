@@ -6,22 +6,14 @@
 
 package edu.zhenger;
 
-import gov.nasa.worldwind.geom.*;
-
-import java.io.Serializable;
-
 /**
  * @Author: WangZheng
  * @Email: tbpwang@gmail.com
  * @Function:
- * @Date: 2017/10/10
+ * @Date: 2017/10/12
  */
-public interface Cell extends Serializable
+public interface QTM extends DGGS
 {
-    Vec4[] getVertex();
-
-    //String getID();
-    String getGeocode();
-
-    LatLon getRefPoint();
+    void analyze(Cell cell);
+    void subdivide(Cell cell);
 }

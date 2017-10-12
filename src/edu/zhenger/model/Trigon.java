@@ -17,7 +17,8 @@ import gov.nasa.worldwind.globes.Globe;
  */
 public class Trigon implements Cell, MeasurableArea, MeasurableLength
 {
-    private LatLon top, left, right, center;
+    private Vec4 top, left, right;
+    private LatLon center;
     private String geocode;
     private Globe globe;
 
@@ -28,18 +29,19 @@ public class Trigon implements Cell, MeasurableArea, MeasurableLength
             throw new Mistake("nullValue: VertexIsNull");
         }
 
-        this.top = new LatLon(top);
-        this.left = new LatLon(left);
-        this.right = new LatLon(right);
-        this.geocode = geocode;
         Vec4 a, b, c, d;
-        a = Turn.getInstance().fromLatLon(top);
-        b = Turn.getInstance().fromLatLon(left);
-        c = Turn.getInstance().fromLatLon(right);
+        a = Change.getInstance().fromLatLon(top);
+        b = Change.getInstance().fromLatLon(left);
+        c = Change.getInstance().fromLatLon(right);
         d = new Vec4((a.x + b.x + c.x) / 3, (a.y + b.y + c.y) / 3, (a.z + b.z + c.z) / 3);
 
-        this.center = new LatLon(Turn.getInstance().fromVec4(d));
-        this.globe = Turn.getInstance().getGlobe();
+        this.top = new Vec4(a.getX(), a.getY(), a.getZ());
+        this.left = new Vec4(b.getX(), b.getY(), b.getZ());
+        this.right = new Vec4(c.getX(), c.getY(), c.getZ());
+        this.geocode = geocode;
+
+        this.center = new LatLon(Change.getInstance().fromVec4(d));
+        this.globe = Change.getInstance().getGlobe();
 
         a = null;
         b = null;
@@ -58,9 +60,9 @@ public class Trigon implements Cell, MeasurableArea, MeasurableLength
     }
 
     @Override
-    public LatLon[] getVertex()
+    public Vec4[] getVertex()
     {
-        return new LatLon[] {top, left, right};
+        return new Vec4[] {top, left, right};
     }
 
     @Override
@@ -84,12 +86,18 @@ public class Trigon implements Cell, MeasurableArea, MeasurableLength
         //数学手册编写组，数学手册，北京：高等教育出版社，2010年印，p49-50.
         //公式半角: sin(A/2)=sqrt(sin(p-b)*sin(p-c)/(sin(b)*sin(c)))
         // S = (A+B+C-PI)*R^2
+
+        LatLon latLonA, latLonB, latLonC;
+        latLonA = Change.getInstance().fromVec4(top);
+        latLonB = Change.getInstance().fromVec4(left);
+        latLonC = Change.getInstance().fromVec4(right);
+
         double a, b, c, p;
         double A, B, C;
 
-        a = LatLon.greatCircleDistance(left, right).getRadians();
-        b = LatLon.greatCircleDistance(right, top).getRadians();
-        c = LatLon.greatCircleDistance(top, left).getRadians();
+        a = LatLon.greatCircleDistance(latLonB, latLonC).getRadians();
+        b = LatLon.greatCircleDistance(latLonC, latLonA).getRadians();
+        c = LatLon.greatCircleDistance(latLonA, latLonB).getRadians();
         // half-side of triangle
         p = (a + b + c) / 2;
 
@@ -103,23 +111,28 @@ public class Trigon implements Cell, MeasurableArea, MeasurableLength
     @Override
     public double getPerimeter(Globe globe)
     {
-        double a, b, c;
-        a = LatLon.greatCircleDistance(left, right).getRadians();
-        b = LatLon.greatCircleDistance(right, top).getRadians();
-        c = LatLon.greatCircleDistance(top, left).getRadians();
-        return globe.getRadius() * (a + b + c);
+        double a = left.angleBetween3(right).getRadians();
+        double b = right.angleBetween3(top).getRadians();
+        double c = top.angleBetween3(left).getRadians();
+
+        return (a + b + c) * globe.getRadius();
     }
 
     @Override
     public double getWidth(Globe globe)
     {
         // output min side as width
-        double a, b, c, min;
-        a = LatLon.greatCircleDistance(left, right).getRadians();
-        b = LatLon.greatCircleDistance(right, top).getRadians();
-        c = LatLon.greatCircleDistance(top, left).getRadians();
-        min = (a < b ? a : b) < c ? (a < b ? a : b) : c;
-        return globe.getRadius() * min;
+
+//        double a = left.distanceTo2(right);
+//        double b = right.distanceTo2(top);
+//        double c = top.distanceTo2(left);
+
+        double a = Math.abs(left.angleBetween3(right).getRadians());
+        double b = Math.abs(right.angleBetween3(top).getRadians());
+        double c = Math.abs(top.angleBetween3(left).getRadians());
+
+        double min = (a < b ? a : b) < c ? (a < b ? a : b) : c;
+        return min * globe.getRadius();
     }
 
     @Override
@@ -127,23 +140,33 @@ public class Trigon implements Cell, MeasurableArea, MeasurableLength
     {
         // output the distance of great circle,
         // from top vertex along longitude to opposite side
-        double lat = Angle.average(left.getLatitude(), right.getLatitude()).getRadians();
-        double lon = Math.abs(top.getLatitude().getDegrees()) == 90 ? Angle.average(left.getLongitude(),
-            right.getLongitude()).getRadians() : top.getLongitude().getRadians();
+
+        LatLon latLonA = Change.getInstance().fromVec4(top);
+        LatLon latLonB = Change.getInstance().fromVec4(left);
+        LatLon latLonC = Change.getInstance().fromVec4(right);
+
+        double lat = Angle.average(latLonB.getLatitude(), latLonC.getLatitude()).getRadians();
+        double lon = Math.abs(latLonA.getLatitude().getDegrees()) == 90 ? Angle.average(latLonB.getLongitude(),
+            latLonC.getLongitude()).getRadians() : latLonA.getLongitude().getRadians();
         LatLon temp = LatLon.fromRadians(lat, lon);
 
-        return LatLon.greatCircleDistance(top, temp).getRadians() * globe.getRadius();
+        return LatLon.greatCircleDistance(latLonA, temp).getRadians() * globe.getRadius();
     }
 
     @Override
     public double getLength(Globe globe)
     {
         // output max side as width
-        double a, b, c, max;
-        a = LatLon.greatCircleDistance(left, right).getRadians();
-        b = LatLon.greatCircleDistance(right, top).getRadians();
-        c = LatLon.greatCircleDistance(top, left).getRadians();
-        max = (a > b ? a : b) > c ? (a > b ? a : b) : c;
-        return globe.getRadius() * max;
+//        LatLon latLonA = Change.getInstance().fromVec4(top);
+//        LatLon latLonB = Change.getInstance().fromVec4(left);
+//        LatLon latLonC = Change.getInstance().fromVec4(right);
+        double a = Math.abs(left.angleBetween3(right).getRadians());
+        double b = Math.abs(right.angleBetween3(top).getRadians());
+        double c = Math.abs(top.angleBetween3(left).getRadians());
+//        double a = LatLon.greatCircleDistance(latLonB, latLonC).getRadians();
+//        double b = LatLon.greatCircleDistance(latLonC, latLonA).getRadians();
+//        double c = LatLon.greatCircleDistance(latLonA, latLonB).getRadians();
+        double max = (a > b ? a : b) > c ? (a > b ? a : b) : c;
+        return max * globe.getRadius();
     }
 }

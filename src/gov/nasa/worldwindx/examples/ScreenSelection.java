@@ -176,7 +176,7 @@ public class ScreenSelection extends ApplicationTemplate
             if (this.lastBoxHighlightObjects.equals(list))
                 return; // same thing selected
 
-            // Turn off highlight for the last set of selected objects, if any. Since one of these objects may still be
+            // Change off highlight for the last set of selected objects, if any. Since one of these objects may still be
             // highlighted due to a cursor rollover, we detect that object and avoid changing its highlight state.
             for (Highlightable h : this.lastBoxHighlightObjects)
             {
@@ -187,7 +187,7 @@ public class ScreenSelection extends ApplicationTemplate
 
             if (list != null)
             {
-                // Turn on highlight if object selected.
+                // Change on highlight if object selected.
                 for (Object o : list)
                 {
                     if (o instanceof Highlightable)
